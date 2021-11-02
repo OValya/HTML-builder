@@ -12,4 +12,5 @@ stdin.on('data', (partData) =>{
         output.write(partData);
     }
 });
-process.on('exit', ()=> stdout.write('See you later!'))
+process.on('exit', ()=> stdout.write('See you later!'));
+// ПРОВЕРИТЬ!! process.on('beforeExit', () = stdout.write('Bye!'));
