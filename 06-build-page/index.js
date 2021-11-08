@@ -64,6 +64,7 @@ const getFile/*getTemplate*/ = (pathToFile) => {
 
 //console.log(pathToStyles);
 async function setStyles(source, dist) {
+   fs.rm(dist, (err) => console.log(err)); 
    const files = await fsp.readdir(source);
    const writeStream = fs.createWriteStream(dist);
   /// console.log(files);
