@@ -1,9 +1,3 @@
-/*
-const { readdir } = require('fs/promises');
-//const  = require('fs/promises');
-//const { stdin } = require('node:process');
-const path = require('path');*/
-//read template to data
 const { createReadStream } = require('fs');
 const path = require('path');
 const fs = require('fs');
@@ -16,17 +10,6 @@ const getFile/*getTemplate*/ = (pathToFile) => {
         readStream.on('data', chunk => {data += chunk; res(data)});
     });
  }
-
- /*const readFileWithTag = (pathToFile) => {
-    return new Promise((res, err) => {
-        let data = '';
-        const readStream = createReadStream(pathToFile);
-        readStream.on('data', chunk => {
-            if(chunk.includes('{{')){
-
-            data += chunk; res(data)});
-    });
- }*/
 
  const getFilenamesInDir = (directory) => {
     return new Promise((res, err) => {
@@ -49,11 +32,11 @@ const getFile/*getTemplate*/ = (pathToFile) => {
      const files = await getFilenamesInDir(path.join(__dirname, 'components'));//await fs.readdir(path.join(__dirname, 'components'));
      const writeStream = fs.createWriteStream(path.join(__dirname, 'project-dist', 'index.html'));
      for (const file of files) {
-        //let insert =  await getFile(path.join(__dirname, 'components', `${file}.html`));
+        
         template = template.replace(`{{${file}}}`, await getFile(path.join(__dirname, 'components', `${file}.html`)));
-        //console.log(insert);
+        
      }
-     console.log(template);
+    // console.log(template);
      writeStream.write(template);
           
  })();
@@ -62,22 +45,20 @@ const getFile/*getTemplate*/ = (pathToFile) => {
 
 
 
-//console.log(pathToStyles);
+
 async function setStyles(source, dist) {
-   fs.rm(dist, (err) => console.log(err)); 
+   
    const files = await fsp.readdir(source);
    const writeStream = fs.createWriteStream(dist);
-  /// console.log(files);
-   let data = '';
-   //let arrStyles = [];
    for (const file of files) {
+       let data = '';
        const pathToFile = path.join(pathToStyles, file)
        fsp.stat(pathToFile).then((stats)=>{
            if(stats.isFile && path.extname(file)==='.css'){
             
              const readStream = fs.createReadStream(pathToFile, 'utf-8');
              readStream.on('data', partData => data += partData);
-             //arrStyles.push(data);
+             
              readStream.on('end', ()=> writeStream.write(data));
         }
        })
@@ -91,7 +72,7 @@ setStyles(pathToStyles, pathToDist);
 
 
 async function copyDir(directoryForCopy, newDir){
-    console.log(directoryForCopy);
+   // console.log(directoryForCopy);
     const files = await fsp.readdir(directoryForCopy);
     fs.mkdir(newDir, {recursive:true}, (err) => {
         console.log(err)
