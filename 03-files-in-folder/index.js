@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
+
 async function readDir(directory){
   const files = await fs.readdir(directory);
   for (const file of files) {

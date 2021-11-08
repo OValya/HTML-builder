@@ -4,11 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const pathToDist = path.join(__dirname, 'project-dist');
 const pathToStyles = path.join(__dirname, 'styles');
-console.log(pathToStyles);
-async function doSomething(source) {
+//console.log(pathToStyles);
+(async function doSomething(source) {
    const files = await fsp.readdir(source);
    const writeStream = fs.createWriteStream(path.join(pathToDist, 'bundle.css'));
-   console.log(files);
+  /// console.log(files);
    let data = '';
    //let arrStyles = [];
    for (const file of files) {
@@ -22,6 +22,6 @@ async function doSomething(source) {
         }
        })
    }
-}
+})(pathToStyles)
 
-doSomething(pathToStyles);
+//doSomething();
