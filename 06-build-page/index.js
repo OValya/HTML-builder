@@ -85,7 +85,7 @@ async function setStyles(source, dist) {
 
 
 const pathToStyles = path.join(__dirname, 'styles');
-const pathToDist = path.join(__dirname, 'project-dist', 'bundle.css');
+const pathToDist = path.join(__dirname, 'project-dist', 'style.css');
 setStyles(pathToStyles, pathToDist);
 
 
