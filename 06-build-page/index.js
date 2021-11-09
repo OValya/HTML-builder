@@ -16,7 +16,8 @@ const getFile/*getTemplate*/ = (pathToFile) => {
         let fileNames = [];
         fs.readdir(directory, (err, files) => { 
             for (const file of files) {
-                fileNames.push(path.parse(file).name);               
+                if(path.extname(file)==='.html')
+                    fileNames.push(path.parse(file).name);               
             }
             res(fileNames);
         })
