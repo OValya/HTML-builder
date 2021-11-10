@@ -6,12 +6,12 @@ const output = fs.createWriteStream(path.join(path.dirname(__filename), 'text.tx
 stdout.write(`Hello! \nEnter text:\n`);
 //console.log(path.dirname(__filename));
 stdin.on('data', (partData) =>{
-    if(partData.toString().includes('exit')) {
-        partData = partData.slice(0, partData.indexOf('exit'));
+    if(partData.toString('utf-8').trimEnd() != "exit") {
+        //partData = partData.slice(0, partData.indexOf('exit'));
         output.write(partData);
-        process.exit();}
+       }
     else {
-        output.write(partData);
+        process.exit();
     }
     
 });
