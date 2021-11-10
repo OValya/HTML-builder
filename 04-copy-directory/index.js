@@ -8,9 +8,7 @@ const newDir = path.join(__dirname, 'files-copy')
 
 async function copyDir(pathDir){
     await fs.rm(newDir, { recursive: true, force: true } );
-    await fs.mkdir(newDir,  (err) => {
-            console.log(err)
-        });
+    await fs.mkdir(newDir);
     const files = await fs.readdir(pathDir);
     for (const file of files) {
         await fs.copyFile(path.join(pathDir, file), path.join(newDir, file));  

@@ -24,11 +24,10 @@ const getFile/*getTemplate*/ = (pathToFile) => {
     }) 
   }
  
-  fs.mkdir(path.join(__dirname, 'project-dist'), {recursive:true}, (err) => {
-    console.log(err)
-});
+  
 
  (async function() {
+     await fsp.mkdir(path.join(__dirname, 'project-dist'), {recursive:true});
      let template = await getFile(path.join(__dirname, 'template.html'));//getTemplate();
      const files = await getFilenamesInDir(path.join(__dirname, 'components'));//await fs.readdir(path.join(__dirname, 'components'));
      const writeStream = fs.createWriteStream(path.join(__dirname, 'project-dist', 'index.html'));
@@ -59,7 +58,6 @@ async function setStyles(source, dist) {
             
              const readStream = fs.createReadStream(pathToFile, 'utf-8');
              readStream.on('data', partData => data += partData);
-             
              readStream.on('end', ()=> writeStream.write(data));
         }
        })
@@ -75,9 +73,8 @@ setStyles(pathToStyles, pathToDist);
 async function copyDir(directoryForCopy, newDir){
    // console.log(directoryForCopy);
     const files = await fsp.readdir(directoryForCopy);
-    fs.mkdir(newDir, {recursive:true}, (err) => {
-        console.log(err)
-    });
+    await fsp.rm(newDir, { recursive: true, force: true } );
+    await fsp.mkdir(newDir, {recursive:true});
     for (const file of files) {
       const pathToFile = path.join(directoryForCopy, file);
       fsp.stat(pathToFile).then((stats)=>{
